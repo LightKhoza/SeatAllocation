@@ -1,0 +1,6 @@
+@SeatAllocation_HostAddress = http://localhost:5117
+
+GET {{SeatAllocation_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
