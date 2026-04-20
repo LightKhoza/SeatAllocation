@@ -6,6 +6,7 @@
         public string Name { get; set; }
         public string Email { get; set; }
         public string Department { get; set; }
+        public int DepartmentID { get; set; }
         public Session Session { get; set; }
         public int SessionID { get; set; }
         public Divison Divison { get; set; }
