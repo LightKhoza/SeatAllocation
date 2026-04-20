@@ -14,7 +14,6 @@ namespace SeatAllocation.Controllers
         private readonly AuthService _authService;
         private readonly JWTService _jwtService;
         private readonly AppDbContext _context;
-        private readonly EmailService _emailService;
 
         public AuthController(
             AuthService authService,
@@ -25,7 +24,6 @@ namespace SeatAllocation.Controllers
             _authService = authService;
             _jwtService = jwtService;
             _context = context;
-            _emailService = emailService;
         }
 
         [HttpPost("register")]
@@ -35,11 +33,6 @@ namespace SeatAllocation.Controllers
             {
                 if (dto == null)
                     return BadRequest(new { message = "Invalid request" });
-                var existingUser = await _context.Users
-                    .FirstOrDefaultAsync(u => u.Email == dto.Email);
-
-                if (existingUser != null)
-                    return BadRequest(new { message = "Email already exists" });
 
                 var result = await _authService.Register(dto);
 

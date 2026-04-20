@@ -16,6 +16,7 @@ namespace SeatAllocation.Data
         public DbSet<Participants> Participants { get; set; }
         public DbSet<SessionType> SessionTypes { get; set; }
         public DbSet<SessionDepartmentAllocation> SessionDepartmentAllocations { get; set; }
+        public DbSet<SessionDivisionAllocation> SessionDivisionAllocations { get; set; }    
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

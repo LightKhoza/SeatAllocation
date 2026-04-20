@@ -12,34 +12,40 @@ namespace SeatAllocation.Services
             _config = config;
         }
 
-        public async Task SendEmail(string to, string subject, string body)
+        public async Task<bool> SendEmail(string to, string subject, string body)
         {
-            var email = new MimeMessage();
-
-            email.From.Add(MailboxAddress.Parse(_config["EmailSettings:Email"]));
-            email.To.Add(MailboxAddress.Parse(to));
-            email.Subject = subject;
-
-            email.Body = new TextPart("html")
+            try
             {
-                Text = body
-            };
+                var email = new MimeMessage();
 
-            using var smtp = new SmtpClient();
+                email.From.Add(MailboxAddress.Parse(_config["EmailSettings:Email"]));
+                email.To.Add(MailboxAddress.Parse(to));
+                email.Subject = subject;
 
-            await smtp.ConnectAsync(
-                _config["EmailSettings:Host"],
-                int.Parse(_config["EmailSettings:Port"]),
-                MailKit.Security.SecureSocketOptions.StartTls
-            );
+                email.Body = new TextPart("html") { Text = body };
 
-            await smtp.AuthenticateAsync(
-                _config["EmailSettings:Email"],
-                _config["EmailSettings:Password"]
-            );
+                using var smtp = new SmtpClient();
 
-            await smtp.SendAsync(email);
-            await smtp.DisconnectAsync(true);
+                await smtp.ConnectAsync(
+                    _config["EmailSettings:Host"],
+                    int.Parse(_config["EmailSettings:Port"]),
+                    MailKit.Security.SecureSocketOptions.StartTls
+                );
+
+                await smtp.AuthenticateAsync(
+                    _config["EmailSettings:Email"],
+                    _config["EmailSettings:Password"]
+                );
+
+                await smtp.SendAsync(email);
+                await smtp.DisconnectAsync(true);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

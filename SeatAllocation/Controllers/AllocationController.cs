@@ -31,7 +31,7 @@ namespace SeatAllocation.Controllers
             {
                 int sessionCount = 0;
 
-                foreach (var deptGroup in participants.GroupBy(p => p.DepartmentID))
+                foreach (var deptGroup in participants.GroupBy(p => p.DivisonID))
                 {
                     var rule = rules.First(r =>
                         r.SessionId == session.Id &&
