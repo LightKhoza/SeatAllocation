@@ -7,7 +7,7 @@
         public TimeOnly TimeSlot { get; set; }
         public int Capacity { get; set; }
         public string Notes { get; set; }
-        Session Session { get; set; }
-        Session SessionID { get; set; } = new Session();
+        public Session Session { get; set; }
+        public int SessionID { get; set; } 
     }
 }

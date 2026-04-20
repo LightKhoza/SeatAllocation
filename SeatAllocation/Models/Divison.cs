@@ -8,5 +8,9 @@
         public int SeatsAllocated { get; set; }
         public int MaxPerSession { get; set; }
         public int TotalSeats { get; set; }
+
+        public Department Department { get; set; }
+        public int DepartmentID { get; set; }
+
     }
 }
